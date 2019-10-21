@@ -1,5 +1,4 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './login.css';
 import { Form, Icon, Input, Button } from 'antd';
 
