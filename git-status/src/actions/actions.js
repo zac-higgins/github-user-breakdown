@@ -29,14 +29,14 @@ export const getFavorites = () => dispatch => {
   };
 
 export const getNotes = () => dispatch => {
-  dispatch({ type: FETCH_NOTE_START });
+  dispatch({ type: FETCH_NOTES_START });
   AxiosWithAuth()
     .get(/*/api/notes/userID*/)
     .then(res => {
-      dispatch({ type: FETCH_NOTE_SUCCESS, payload: res.data })
+      dispatch({ type: FETCH_NOTES_SUCCESS, payload: res.data })
     }
     )
-    .catch(err => dispatch({ type: FETCH_NOTE_FAIL, payload: err }));
+    .catch(err => dispatch({ type: FETCH_NOTES_FAIL, payload: err }));
 };
 
 export const postNote = (note) => dispatch => {
@@ -47,14 +47,14 @@ export const postNote = (note) => dispatch => {
         dispatch({ type: POST_NOTE_SUCCESS, payload: res.data })
       }
       )
-      .catch(err => dispatch({ type: FETCH_NOTE_FAIL, payload: err }));
+      .catch(err => dispatch({ type: FETCH_NOTES_FAIL, payload: err }));
   };
 
   
   export const postFavorite = (favoriteIDOrUsername) => dispatch => {
     dispatch({ type: POST_FAVORITE_START });
     AxiosWithAuth()
-      .post(/*/api/favorites/userID*/"", favorite)
+      .post(/*/api/favorites/userID*/"", /*favorite*/)
       .then(res => {
         dispatch({ type: POST_FAVORITE_SUCCESS, payload: res.data })
       }
