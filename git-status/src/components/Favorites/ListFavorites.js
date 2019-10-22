@@ -1,11 +1,10 @@
-import React from 'react';
-import { getFavorites } from "../../actions/actions.js";
+import React, {useEffect} from 'react';
 import Favorite from "./Favorite.js";
 
-function ListFavorites() {
+function ListFavorites(props) {
 
     useEffect(() => {
-        props.getFavorites();
+        //props.getFavorites();
     }, [])
 
     if (props.error) return (<p>Error getting favorites, please reload page...</p>)//TODO: Reload page automatically
@@ -14,22 +13,22 @@ function ListFavorites() {
 
   return (
     <div>
-        {favorites.map((favorite) => {
+        {/* {favorites.map((favorite) => {
             <Favorite favorite={favorite}/>
-        })}
+        })} */}
     </div>
   );
 }
 
 export default ListFavorites;
 
-const mapStateToProps = state => ({
-    favorites: state.favorites, 
-    error: state.error, 
-    isFetching: state.isFetching
-});
+// const mapStateToProps = state => ({
+//     favorites: state.favorites, 
+//     error: state.error, 
+//     isFetching: state.isFetching
+// });
 
-export default connect(
-    mapStateToProps,
-    { getFavorites }
-)(ListFavorites);
+// export default connect(
+//     mapStateToProps,
+//     { getFavorites }
+// )(ListFavorites);

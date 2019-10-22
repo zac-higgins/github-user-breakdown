@@ -1,6 +1,8 @@
 import React from 'react';
 import './register.css';
 import { Form, Input, Button } from 'antd';
+import axios from "axios"
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
 //Need React Router to import and use for routing to home on successful registration
 
@@ -12,7 +14,21 @@ const RegisterForm = props => {
       e.preventDefault();
       props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+          console.log('Received values of form: ', {username: values.username, password: values.password});
+          axios
+          .post("https://gitstatus-app.herokuapp.com/api/auth/register", {username: values.username, password: values.password}/*stripping out values.confirm */)
+          .then(() => {
+            //kinda weird but now that we registered I'm going to login for the user to get the token so we don't have to redirect them to /login
+            axios
+            .post("https://gitstatus-app.herokuapp.com/api/auth/login", values)
+            .then((res) => {
+              console.log("Login successful ", res.data.token);
+              localStorage.setItem('token', res.data.token);
+              props.history.push('/');
+            })
+            .catch((err) => {alert("ERROR LOGGING IN \n " + err)})
+          })
+          .catch((err) => {alert("ERROR REGISTERING \n " + err)})
         }
       });
     };
@@ -78,7 +94,7 @@ const RegisterForm = props => {
               Register
             </Button>
             {/* Need to route here to the Login page */}
-            Already have an account? Login
+            Already have an account? <Link to="/login">Login</Link>
           </Form.Item>
         </Form>
       );
