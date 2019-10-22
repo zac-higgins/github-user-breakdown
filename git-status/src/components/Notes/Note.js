@@ -6,8 +6,10 @@ const Note = props => {
     return (
         <div className='note'>
             <span>{props.text}</span>
-            <Button>Edit</Button>
-            <Button type='danger'>Delete</Button>
+            <div>
+                <Button>Edit</Button>
+                <Button type='danger'>Delete</Button>
+            </div>
         </div>
     );
 };
