@@ -1,5 +1,4 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './register.css';
 import { Form, Input, Button } from 'antd';
 
