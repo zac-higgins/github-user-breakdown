@@ -7,7 +7,13 @@ const WrappedNoteForm = props => {
         props.form.validateFields((err, values) => {
     
           if (!err) {
-            props.addNote(values);
+            if (!props.isEditing) {
+              props.addNote(values);
+              props.form.resetFields();
+            } else {
+              props.updateNote(values);
+              props.showForm(false);
+            }
           }
         });
       };
@@ -27,9 +33,9 @@ const WrappedNoteForm = props => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Add Note
+            {props.isEditing ? 'Update Note' : 'Add Note'}
           </Button>
-          <Button type="danger" htmlType="cancel" onClick={() => props.hideForm(false)}>
+          <Button type="danger" onClick={() => props.showForm(false)}>
               Cancel
           </Button>
         </Form.Item>
