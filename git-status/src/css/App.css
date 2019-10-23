@@ -38,3 +38,11 @@
   width: 33%;
   background-color: #FAF8FF;
 }
+.App .searchResults {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.App .searchResults .individualSearchResult {
+  margin: 20px;
+}
