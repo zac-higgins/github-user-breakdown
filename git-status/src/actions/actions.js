@@ -17,50 +17,50 @@ export const POST_NOTE_START = 'POST_NOTE_START';
 export const POST_NOTE_SUCCESS = 'POST_NOTE_SUCCESS';
 export const POST_NOTE_FAIL = 'POST_NOTE_FAIL';
 
-export const getFavorites = () => dispatch => {
-    dispatch({ type: FETCH_FAVORITES_START });
-    AxiosWithAuth()
-      .get(/*/api/favorites/userID*/)
-      .then(res => {
-        dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
-      }
-      )
-      .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
-  };
+// export const getFavorites = () => dispatch => {
+//     dispatch({ type: FETCH_FAVORITES_START });
+//     AxiosWithAuth()
+//       .get(/*/api/favorites/userID*/)
+//       .then(res => {
+//         dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
+//       }
+//       )
+//       .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
+//   };
 
-export const getNotes = () => dispatch => {
-  dispatch({ type: FETCH_NOTES_START });
-  AxiosWithAuth()
-    .get(/*/api/notes/userID*/)
-    .then(res => {
-      dispatch({ type: FETCH_NOTES_SUCCESS, payload: res.data })
-    }
-    )
-    .catch(err => dispatch({ type: FETCH_NOTES_FAIL, payload: err }));
-};
+// export const getNotes = () => dispatch => {
+//   dispatch({ type: FETCH_NOTE_START });
+//   AxiosWithAuth()
+//     .get(/*/api/notes/userID*/)
+//     .then(res => {
+//       dispatch({ type: FETCH_NOTE_SUCCESS, payload: res.data })
+//     }
+//     )
+//     .catch(err => dispatch({ type: FETCH_NOTE_FAIL, payload: err }));
+// };
 
-export const postNote = (note) => dispatch => {
-    dispatch({ type: POST_NOTE_START });
-    AxiosWithAuth()
-      .post(/*/api/notes/userID*/"", note)//"note is a string"
-      .then(res => {
-        dispatch({ type: POST_NOTE_SUCCESS, payload: res.data })
-      }
-      )
-      .catch(err => dispatch({ type: FETCH_NOTES_FAIL, payload: err }));
-  };
+// export const postNote = (note) => dispatch => {
+//     dispatch({ type: POST_NOTE_START });
+//     AxiosWithAuth()
+//       .post(/*/api/notes/userID*/"", note)//"note is a string"
+//       .then(res => {
+//         dispatch({ type: POST_NOTE_SUCCESS, payload: res.data })
+//       }
+//       )
+//       .catch(err => dispatch({ type: FETCH_NOTE_FAIL, payload: err }));
+//   };
 
   
-  export const postFavorite = (favoriteIDOrUsername) => dispatch => {
-    dispatch({ type: POST_FAVORITE_START });
-    AxiosWithAuth()
-      .post(/*/api/favorites/userID*/"", /*favorite*/)
-      .then(res => {
-        dispatch({ type: POST_FAVORITE_SUCCESS, payload: res.data })
-      }
-      )
-      .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
-  };
+//   export const postFavorite = (favoriteIDOrUsername) => dispatch => {
+//     dispatch({ type: POST_FAVORITE_START });
+//     AxiosWithAuth()
+//       .post(/*/api/favorites/userID*/"", favorite)
+//       .then(res => {
+//         dispatch({ type: POST_FAVORITE_SUCCESS, payload: res.data })
+//       }
+//       )
+//       .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
+//   };
   
 
 

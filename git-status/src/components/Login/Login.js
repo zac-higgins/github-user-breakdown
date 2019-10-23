@@ -1,6 +1,8 @@
 import React from 'react';
 import './login.css';
 import { Form, Icon, Input, Button } from 'antd';
+import axios from "axios";
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
 // Likley need to import React Router here to be able to route through the app on success or register
 
@@ -15,6 +17,14 @@ const LoginForm = props => {
 
       if (!err) {
         console.log('Received values of form: ', values);
+        axios
+        .post("https://gitstatus-app.herokuapp.com/api/auth/login", values)
+        .then((res) => {
+          console.log("Login successful ", res.data.token);
+          localStorage.setItem('token', res.data.token);
+          props.history.push('/');
+        })
+        .catch((err) => {alert("ERROR LOGGING IN \n " + err)})
       }
     });
   };
@@ -48,7 +58,7 @@ const LoginForm = props => {
             Log in
           </Button>
           {/* Need Route here to go to home page using Link in React Router instead of an anchor tag */}
-          Or <a href="">register now!</a>
+          Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
     );
