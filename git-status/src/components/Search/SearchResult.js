@@ -17,7 +17,7 @@ function SearchResult(props) {
                     style={{ width: 240 }}
                     cover={<img alt="example" src={props.result.avatar_url} />}
                 >
-                    <Meta title={props.result.login} description="Name will go here" />
+                    <Meta title={props.result.login} />
                 </Card>
             </Link>
         </div>
