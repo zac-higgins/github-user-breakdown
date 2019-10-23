@@ -3,6 +3,7 @@ import axios from "axios";
 import { getUserAccount, getUserEvents, getUserFollowers, getUserStarredRepos, getUserSubscriptions, getUserFollows } from "../../Utils/AxiosCall.js";
 import { withRouter } from "react-router-dom";
 import { Descriptions } from 'antd';
+import Notes from '../Notes/NotesContainer';
 
 // avatar_url: "https://avatars3.githubusercontent.com/u/17069338?v=4"
 // bio: "Just a person."
@@ -80,6 +81,7 @@ function GitHubUser(props) {
                 <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
                 <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
             </Descriptions>
+            <Notes />
         </div>
     );
 };
