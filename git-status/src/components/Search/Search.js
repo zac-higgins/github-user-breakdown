@@ -7,7 +7,7 @@ function Search(props) {
 
     console.log("New search page searching for term ", props.match.params.searchTerm);
 
-    const [searchTerm, setSearchTerm ] = useState(props.match.params.searchTerm);
+    const [searchTerm, setSearchTerm] = useState(props.match.params.searchTerm);
 
     useEffect(() => {
         setSearchTerm(props.match.params.searchTerm);
@@ -16,7 +16,7 @@ function Search(props) {
     return (
         <div>
             <SearchForm />
-            <ListSearchResults searchTerm={searchTerm}/>
+            <ListSearchResults searchTerm={searchTerm} />
         </div>
     );
 }
