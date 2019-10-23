@@ -7,7 +7,7 @@ const Note = props => {
         <div className='note'>
             <span className='note-text'>{props.text}</span>
             <div className="note-buttons">
-                <Button>Edit</Button>
+                <Button onClick={() => props.enableEdit(props.noteId)}>Edit</Button>
                 <Button type='danger' onClick={() => props.deleteNote(props.noteId)}>Delete</Button>
             </div>
         </div>
