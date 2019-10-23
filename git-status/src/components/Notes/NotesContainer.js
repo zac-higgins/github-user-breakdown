@@ -13,6 +13,7 @@ const NotesContainer = props => {
     
     const addNote = note => {
         setNotes([ ...notes, note]);
+        setShowForm(false);
     };
 
     const deleteNote = id => {
