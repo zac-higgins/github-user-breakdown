@@ -5,10 +5,10 @@ import './note.css';
 const Note = props => {
     return (
         <div className='note'>
-            <span class='note-text'>{props.text}</span>
+            <span className='note-text'>{props.text}</span>
             <div className="note-buttons">
                 <Button>Edit</Button>
-                <Button type='danger'>Delete</Button>
+                <Button type='danger' onClick={() => props.deleteNote(props.noteId)}>Delete</Button>
             </div>
         </div>
     );

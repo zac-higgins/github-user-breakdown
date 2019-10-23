@@ -8,6 +8,7 @@ const WrappedNoteForm = props => {
     
           if (!err) {
             props.addNote(values);
+            props.form.resetFields();
           }
         });
       };
@@ -29,7 +30,7 @@ const WrappedNoteForm = props => {
           <Button type="primary" htmlType="submit">
             Add Note
           </Button>
-          <Button type="danger" htmlType="cancel" onClick={() => props.hideForm(false)}>
+          <Button type="danger" htmlType="reset" onClick={() => props.hideForm(false)}>
               Cancel
           </Button>
         </Form.Item>
