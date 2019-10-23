@@ -4,6 +4,7 @@ import { getUserAccount, getUserEvents, getUserFollowers, getUserStarredRepos, g
 import { withRouter } from "react-router-dom";
 import { Descriptions, Anchor, Typography, Skeleton } from 'antd';
 import Notes from '../Notes/NotesContainer';
+import ToggleFavoriteButton from "../Favorites/ToggleFavoriteButton.js";
 const { Link } = Anchor;
 const { Title } = Typography;
 
@@ -78,6 +79,7 @@ function GitHubUser(props) {
         <div className="gitHubUser">
             <div className="userInfo">
                 <img src={userAccount.avatar_url} />
+                <ToggleFavoriteButton username={userAccount.login}/>
                 <div className="userDescription">
                     <Descriptions title={userAccount.login}>
                         {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
