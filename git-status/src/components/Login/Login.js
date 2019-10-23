@@ -11,26 +11,27 @@ const LoginForm = props => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
 
-        // Object provided under values is { username: '', password: '' }
-        // Need to send that to the back end on success
-        // Need to determine what to do on error state of login request
+      // Object provided under values is { username: '', password: '' }
+      // Need to send that to the back end on success
+      // Need to determine what to do on error state of login request
 
       if (!err) {
         console.log('Received values of form: ', values);
         axios
-        .post("https://gitstatus-app.herokuapp.com/api/auth/login", values)
-        .then((res) => {
-          console.log("Login successful ", res.data.token);
-          localStorage.setItem('token', res.data.token);
-          props.history.push('/');
-        })
-        .catch((err) => {alert("ERROR LOGGING IN \n " + err)})
+          .post("https://gitstatus-app.herokuapp.com/api/auth/login", values)
+          .then((res) => {
+            console.log("Login successful ", res.data.token);
+            localStorage.setItem('token', res.data.token);
+            props.history.push('/');
+          })
+          .catch((err) => { alert("ERROR LOGGING IN \n " + err) })
       }
     });
   };
 
   const { getFieldDecorator } = props.form;
-    return (
+  return (
+    <div className="loginAndRegisterForm">
       <Form onSubmit={handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('username', {
@@ -61,7 +62,8 @@ const LoginForm = props => {
           Or <Link to="/register">register now!</Link>
         </Form.Item>
       </Form>
-    );
+    </div>
+  );
 }
 
 const Login = Form.create({ name: 'login' })(LoginForm);
