@@ -14,7 +14,7 @@ export const AxiosWithAuth = (props) => {
     }
 
     return axios.create({
-        baseURL: ""/*TODO: add API URL*/,
+        baseURL: "https://gitstatus-app.herokuapp.com/api/"/*TODO: add API URL*/,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`,
