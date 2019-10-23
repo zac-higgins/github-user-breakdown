@@ -23,7 +23,7 @@ const NotesContainer = props => {
     const enableEdit = id => {
         if (!showForm) setShowForm(true);
         setIsEditing(true);
-        setNoteIdToEdit(id)
+        setNoteIdToEdit(id);
     }
 
     const updateNote = note => {
