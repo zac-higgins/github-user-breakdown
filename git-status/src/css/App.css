@@ -25,3 +25,16 @@
 .App .gitHubUser .userNotes {
   width: 80%;
 }
+.App .loginAndRegisterForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.App .loginAndRegisterForm .login-form {
+  width: 33%;
+  background-color: #FAF8FF;
+}
+.App .loginAndRegisterForm .register-form {
+  width: 33%;
+  background-color: #FAF8FF;
+}
