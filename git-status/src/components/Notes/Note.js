@@ -5,8 +5,8 @@ import './note.css';
 const Note = props => {
     return (
         <div className='note'>
-            <span>{props.text}</span>
-            <div>
+            <span class='note-text'>{props.text}</span>
+            <div className="note-buttons">
                 <Button>Edit</Button>
                 <Button type='danger'>Delete</Button>
             </div>
