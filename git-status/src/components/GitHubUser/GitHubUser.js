@@ -78,17 +78,19 @@ function GitHubUser(props) {
         <div className="gitHubUser">
             <div className="userInfo">
                 <img src={userAccount.avatar_url} />
-                <Descriptions title={userAccount.login}>
-                    {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
-                    <Descriptions.Item label="Name">{userAccount.name}</Descriptions.Item>
-                    <Descriptions.Item label="Email">{userAccount.email}</Descriptions.Item>
-                    <Descriptions.Item label="Bio">{userAccount.bio}</Descriptions.Item>
-                    <Descriptions.Item label="Created On"> {userAccount.created_at.substring(0, 10)}</Descriptions.Item>
-                    <Descriptions.Item label="Public Repositories">{userAccount.public_repos}</Descriptions.Item>
-                    <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
-                    <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
-                </Descriptions>
-                <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
+                <div className="userDescription">
+                    <Descriptions title={userAccount.login}>
+                        {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
+                        <Descriptions.Item label="Name">{userAccount.name}</Descriptions.Item>
+                        <Descriptions.Item label="Email">{userAccount.email}</Descriptions.Item>
+                        <Descriptions.Item label="Bio">{userAccount.bio}</Descriptions.Item>
+                        <Descriptions.Item label="Created On"> {userAccount.created_at.substring(0, 10)}</Descriptions.Item>
+                        <Descriptions.Item label="Public Repositories">{userAccount.public_repos}</Descriptions.Item>
+                        <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
+                        <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
+                    </Descriptions>
+                    <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
+                </div>
             </div>
             <div className="userNotes">
                 <Notes />
