@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { getUserAccount, getUserEvents, getUserFollowers, getUserStarredRepos, getUserSubscriptions, getUserFollows } from "../../Utils/AxiosCall.js";
 import { withRouter } from "react-router-dom";
-import { Descriptions } from 'antd';
+import { Descriptions, Anchor, Typography, Skeleton } from 'antd';
 import Notes from '../Notes/NotesContainer';
+const { Link } = Anchor;
+const { Title } = Typography;
 
 // avatar_url: "https://avatars3.githubusercontent.com/u/17069338?v=4"
 // bio: "Just a person."
@@ -65,23 +67,34 @@ function GitHubUser(props) {
 
     console.log("User Data", userAccount, userEvents);
 
-    if (!userAccount || !userEvents) return (<p>Loading...</p>);
+    if (!userAccount || !userEvents) return (
+        <div>
+            <Title level={2}>Loading...</Title>
+            <Skeleton avatar paragraph={{ rows: 4 }} />
+        </div>
+    );
 
     return (
         <div className="gitHubUser">
-            <Descriptions title={userAccount.login}>
+            <div className="userInfo">
                 <img src={userAccount.avatar_url} />
-                {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
-                <Descriptions.Item label="Name">{userAccount.name}</Descriptions.Item>
-                {/* <hr /> */}
-                <Descriptions.Item label="Bio">{userAccount.bio}</Descriptions.Item>
-                <Descriptions.Item label="Email">{userAccount.email}</Descriptions.Item>
-                <Descriptions.Item label="Created At"> {userAccount.created_at.substring(0, 10)}</Descriptions.Item>
-                <Descriptions.Item label="Public Repositories">{userAccount.public_repos}</Descriptions.Item>
-                <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
-                <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
-            </Descriptions>
-            <Notes />
+                <div className="userDescription">
+                    <Descriptions title={userAccount.login}>
+                        {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
+                        <Descriptions.Item label="Name">{userAccount.name}</Descriptions.Item>
+                        <Descriptions.Item label="Email">{userAccount.email}</Descriptions.Item>
+                        <Descriptions.Item label="Bio">{userAccount.bio}</Descriptions.Item>
+                        <Descriptions.Item label="Created On"> {userAccount.created_at.substring(0, 10)}</Descriptions.Item>
+                        <Descriptions.Item label="Public Repositories">{userAccount.public_repos}</Descriptions.Item>
+                        <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
+                        <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
+                    </Descriptions>
+                    <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
+                </div>
+            </div>
+            <div className="userNotes">
+                <Notes />
+            </div>
         </div>
     );
 };
