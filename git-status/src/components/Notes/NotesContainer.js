@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
+import { Button } from 'antd';
 
 import NoteForm from './NoteForm';
-import Note from './Note';
+import ListNotes from './ListNotes';
 
 const NotesContainer = props => {
 
     const [ notes, setNotes ] = useState([{ text: 'Add notes about your favorite GiHub users!'}]);
-
-    const addNote = note => {}
-
+    const [ showForm, setShowForm ] = useState(false);
+    
+    const addNote = note => {
+        setNotes([ ...notes, note]);
+    };
 
     return (
         <div>
-            Notes Container
-            {notes.map((note, idx) => <Note key={idx} text={note.text} />)}
+            <h3>Notes</h3>
+            <Button type='primary' onClick={() => setShowForm(true)}>Add New Note</Button>
+            <ListNotes notes={notes} />
+            {showForm ? <NoteForm hideForm={setShowForm} addNote={addNote} /> : null}
         </div>
     );
 };
