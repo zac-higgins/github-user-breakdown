@@ -22,7 +22,7 @@ function ToggleFavoriteButton(props) {//props will need the username of the GitH
     return (
         <div>
             {/* decide which data we want to show in a Favorite (probably not too detailed since it's in a list but enough to keep up with your favorites at a glance) */}
-            sorry the favorite button is huge since there's no styling yet...
+
             <img className="favoriteButton" src={favSrc} onClick={(e) => {
                 e.preventDefault();
                 console.log("TOGGLE FAV ON CLICK");
@@ -35,9 +35,9 @@ function ToggleFavoriteButton(props) {//props will need the username of the GitH
                         props.getFavorites(props.userID);//now that we added a favorite lets fetch them to update state.favorites
                     }
                     else {
-                        console.log("DELETING FAV with ID, fullOBJECT", props.favorites.find((favorite) => { return favorite.githubUser === props.username}).id, props.favorites.find((favorite) => { return favorite.githubUser === props.username}));
+                        console.log("DELETING FAV with ID, fullOBJECT", props.favorites.find((favorite) => { return favorite.githubUser === props.username }).id, props.favorites.find((favorite) => { return favorite.githubUser === props.username }));
                         //delete fav
-                        props.deleteFavorite(props.favorites.find((favorite) => { return favorite.githubUser === props.username}).id, props.userID)//find the favoriteID of props.username in favorites, then deleteFavorite(with that ID)
+                        props.deleteFavorite(props.favorites.find((favorite) => { return favorite.githubUser === props.username }).id, props.userID)//find the favoriteID of props.username in favorites, then deleteFavorite(with that ID)
                         props.getFavorites(props.userID);//now that we deleted a favorite lets fetch them to update state.favorites
                     }
                 }

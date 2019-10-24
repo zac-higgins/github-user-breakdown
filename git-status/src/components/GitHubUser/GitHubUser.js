@@ -69,7 +69,7 @@ function GitHubUser(props) {
     console.log("User Data", userAccount, userEvents);
 
     if (!userAccount || !userEvents) return (
-        <div>
+        <div className="userLoading">
             <Title level={2}>Loading...</Title>
             <Skeleton avatar paragraph={{ rows: 4 }} />
         </div>
@@ -79,8 +79,8 @@ function GitHubUser(props) {
         <div className="gitHubUser">
             <div className="userInfo">
                 <img src={userAccount.avatar_url} />
-                <ToggleFavoriteButton username={userAccount.login}/>
                 <div className="userDescription">
+                    <ToggleFavoriteButton username={userAccount.login} />
                     <Descriptions title={userAccount.login}>
                         {/* <a href={userAccount.html_url}><h1>{userAccount.login}</h1></a> */}
                         <Descriptions.Item label="Name">{userAccount.name}</Descriptions.Item>
@@ -91,8 +91,8 @@ function GitHubUser(props) {
                         <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
                         <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
                     </Descriptions>
-                    <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
                 </div>
+                <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
             </div>
             <div className="userNotes">
                 <Notes />
