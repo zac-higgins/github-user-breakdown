@@ -1,7 +1,8 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Favorite from "./Favorite.js";
 import { connect } from "react-redux";
-import {getFavorites} from "../../actions/actions";
+import { getFavorites } from "../../actions/actions";
+import { Alert, Skeleton } from 'antd';
 
 function ListFavorites(props) {
 
@@ -9,25 +10,31 @@ function ListFavorites(props) {
         props.getFavorites(props.userID);
     }, [])
 
-    if (props.error) return (<p>Error getting favorites, please reload page...</p>)//TODO: Reload page automatically
+    if (props.error) return (<Alert message="Error getting favorites, please reload page." type="error" showIcon />)//TODO: Reload page automatically
 
-    if (props.isFetching) return (<p>Loading...</p>)
+    if (props.isFetching) return (<Skeleton active />)
 
-    if (props.favorites.length <= 0) return (<p>You have no favorite users yet! Add some: (we could suggest users here)</p>)
+    if (props.favorites.length <= 0) return (
+        <Alert
+            message="You have no favorite users yet"
+            type="info"
+            showIcon
+        />
+    )
 
-  return (
-    <div>
-        {props.favorites.map((favorite) => {
-            return <Favorite favorite={favorite}/>
-        })}
-    </div>
-  );
+    return (
+        <div>
+            {props.favorites.map((favorite) => {
+                return <Favorite favorite={favorite} />
+            })}
+        </div>
+    );
 }
 
 const mapStateToProps = state => ({
     userID: state.userID,
-    favorites: state.favorites, 
-    error: state.error, 
+    favorites: state.favorites,
+    error: state.error,
     isFetching: state.isFetchingFavorites
 });
 
