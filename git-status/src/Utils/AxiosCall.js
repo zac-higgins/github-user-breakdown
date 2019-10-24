@@ -11,7 +11,7 @@ export function getUserEvents(user, setter) {
             .get(`https://api.github.com/users/${user}/events?page=${page}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
             .then((res) => {
                 console.log("GETTING ", res, page);
-                events.push(res);
+                events.push(res.data);
                 collectEvents(user, setter, page + 1);
             })
             .catch((err) => {
