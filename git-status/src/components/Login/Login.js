@@ -3,6 +3,8 @@ import './login.css';
 import { Form, Icon, Input, Button } from 'antd';
 import axios from "axios";
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { setUserID } from "../../actions/actions";
+import { connect } from "react-redux";
 
 // Likley need to import React Router here to be able to route through the app on success or register
 
@@ -21,6 +23,7 @@ const LoginForm = props => {
           .post("https://gitstatus-app.herokuapp.com/api/auth/login", values)
           .then((res) => {
             console.log("Login successful ", res.data.token);
+            props.setUserID(res.data.id);
             localStorage.setItem('token', res.data.token);
             props.history.push('/');
           })
@@ -68,4 +71,11 @@ const LoginForm = props => {
 
 const Login = Form.create({ name: 'login' })(LoginForm);
 
-export default Login;
+const mapStateToProps = state => ({
+  userID: state.userID
+});
+
+export default connect(
+  mapStateToProps,
+  { setUserID }
+)(Login);

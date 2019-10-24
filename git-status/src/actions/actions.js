@@ -9,24 +9,36 @@ export const POST_FAVORITE_START = 'POST_FAVORITE_START';
 export const POST_FAVORITE_SUCCESS = 'POST_FAVORITE_SUCCESS';
 export const POST_FAVORITE_FAIL = 'POST_FAVORITE_FAIL';
 
-export const FETCH_NOTES_START = 'FETCH_NOTES_START';
-export const FETCH_NOTES_SUCCESS = 'FETCH_NOTES_SUCCESS';
-export const FETCH_NOTES_FAIL = 'FETCH_NOTES_FAIL';
+export const DELETE_FAVORITE_START = 'DELETE_FAVORITE_START';
+export const DELETE_FAVORITE_SUCCESS = 'DELETE_FAVORITE_SUCCESS';
+export const DELETE_FAVORITE_FAIL = 'DELETE_FAVORITE_FAIL';
 
-export const POST_NOTE_START = 'POST_NOTE_START';
-export const POST_NOTE_SUCCESS = 'POST_NOTE_SUCCESS';
-export const POST_NOTE_FAIL = 'POST_NOTE_FAIL';
+export const SET_USER_ID = "SET_USER_ID";
 
-// export const getFavorites = () => dispatch => {
-//     dispatch({ type: FETCH_FAVORITES_START });
-//     AxiosWithAuth()
-//       .get(/*/api/favorites/userID*/)
-//       .then(res => {
-//         dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
-//       }
-//       )
-//       .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
-//   };
+// export const FETCH_NOTES_START = 'FETCH_NOTES_START';
+// export const FETCH_NOTES_SUCCESS = 'FETCH_NOTES_SUCCESS';
+// export const FETCH_NOTES_FAIL = 'FETCH_NOTES_FAIL';
+
+// export const POST_NOTE_START = 'POST_NOTE_START';
+// export const POST_NOTE_SUCCESS = 'POST_NOTE_SUCCESS';
+// export const POST_NOTE_FAIL = 'POST_NOTE_FAIL';
+
+export const getFavorites = (userID) => dispatch => {
+    console.log("getting favorites for user ", userID);
+    dispatch({ type: FETCH_FAVORITES_START });
+    AxiosWithAuth()
+      .get("favorites/users/" + userID)
+      .then(res => {
+        dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
+      }
+      )
+      .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
+  };
+
+  export const setUserID = (userID) => dispatch => {
+      console.log("actions.js dispatch setting userID to ", userID );
+    dispatch({ type: SET_USER_ID, payload: userID });
+  }
 
 // export const getNotes = () => dispatch => {
 //   dispatch({ type: FETCH_NOTE_START });
@@ -51,16 +63,30 @@ export const POST_NOTE_FAIL = 'POST_NOTE_FAIL';
 //   };
 
   
-//   export const postFavorite = (favoriteIDOrUsername) => dispatch => {
-//     dispatch({ type: POST_FAVORITE_START });
-//     AxiosWithAuth()
-//       .post(/*/api/favorites/userID*/"", favorite)
-//       .then(res => {
-//         dispatch({ type: POST_FAVORITE_SUCCESS, payload: res.data })
-//       }
-//       )
-//       .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
-//   };
+  export const postFavorite = (userID, favorite) => dispatch => {
+      console.log("actions.js posting favorite", userID , favorite);
+    dispatch({ type: POST_FAVORITE_START });
+    AxiosWithAuth()
+      .post("favorites/users/" + userID, favorite)
+      .then(res => {
+          console.log("We successfully posted a favorite, and I'm hoping res.data contains the successfully posted favorite. Fix if it doesn't:", res.data);
+        dispatch({ type: POST_FAVORITE_SUCCESS, payload: {...favorite, id: res.data[0]} })
+      }
+      )
+      .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
+  };
+
+  export const deleteFavorite = (favoriteID) => dispatch => {
+    dispatch({ type: DELETE_FAVORITE_START });
+    AxiosWithAuth()
+      .delete("favorites/" + favoriteID)
+      .then(res => {
+          console.log("We successfully deleted a favorite, and I'm hoping res.data contains the successfully deleted favorite ID. Fix if it doesn't:", res.data);
+        dispatch({ type: DELETE_FAVORITE_SUCCESS, payload: res.data })
+      }
+      )
+      .catch(err => dispatch({ type: DELETE_FAVORITE_FAIL, payload: err }));
+  };
   
 
 

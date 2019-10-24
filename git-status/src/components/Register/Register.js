@@ -3,6 +3,8 @@ import './register.css';
 import { Form, Input, Button } from 'antd';
 import axios from "axios"
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { connect } from "react-redux";
+import { setUserID } from "../../actions/actions";
 
 //Need React Router to import and use for routing to home on successful registration
 
@@ -24,6 +26,7 @@ const RegisterForm = props => {
               .then((res) => {
                 console.log("Login successful ", res.data.token);
                 localStorage.setItem('token', res.data.token);
+                props.setUserID(res.data.id);
                 props.history.push('/');
               })
               .catch((err) => { alert("ERROR LOGGING IN \n " + err) })
@@ -104,4 +107,11 @@ const RegisterForm = props => {
 
 const Register = Form.create({ name: 'register' })(RegisterForm);
 
-export default Register;
+const mapStateToProps = state => ({
+  userID: state.userID
+});
+export default connect(
+  mapStateToProps,
+  { setUserID }
+)(Register);
+
