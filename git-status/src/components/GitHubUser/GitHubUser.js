@@ -95,7 +95,7 @@ function GitHubUser(props) {
                 <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
             </div>
             <div className="userNotes">
-                <Notes />
+                <Notes username={userAccount.login} />
             </div>
         </div>
     );

@@ -66,3 +66,12 @@
 .App .searchResults .individualSearchResult {
   margin: 20px;
 }
+.App .home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.App .home .searchForm {
+  min-width: 300px;
+}

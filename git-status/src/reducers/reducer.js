@@ -73,15 +73,16 @@ function reducer(state = initialState, action) {
         error: ''
       };
     case POST_FAVORITE_SUCCESS:
-        console.log("POST FAV SUCCESS", action.payload);
+      console.log("POST FAV SUCCESS", action.payload);
       return {
         ...state,
         //favorites: state.favorites.concat(action.payload),
         isPostingFavorite: false,
+        favorites: action.payload.favorites,
         error: ''
       };
     case POST_FAVORITE_FAIL:
-        console.log("POST FAV FAIL", action.payload);
+      console.log("POST FAV FAIL", action.payload);
       return {
         ...state,
         isPostingFavorite: false,
@@ -99,7 +100,7 @@ function reducer(state = initialState, action) {
     case DELETE_FAVORITE_SUCCESS:
       return {
         ...state,
-        //favorites: state.favorites.filter((fav) => { return ( fav.id != action.payload ) }),//set favorites to favorites with the deleted favorite filtered out
+        favorites: action.payload.favorites,
         isDeletingFavorite: false,
         error: ''
       };
