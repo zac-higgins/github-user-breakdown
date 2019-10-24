@@ -6,7 +6,6 @@ function NavBar(props) {
     if (!localStorage.getItem("token")) {
         return (
             <div className="nav">
-                <Link to="/">Home</Link>
                 <Link to="/login">Login</Link>
                 <Link to="/register">Register</Link>
             </div>
@@ -16,7 +15,7 @@ function NavBar(props) {
         return (
             <div className="nav">
                 <Link to="/">Home</Link>
-                <Link onClick={() => { console.log("Deleting token and logging out"); localStorage.removeItem("token"); props.history.push("/login"); window.location.reload(); }}>Log Out</Link>
+                <Link onClick={() => { console.log("Deleting token and logging out"); localStorage.removeItem("token"); props.history.push("/login"); }}>Log Out</Link>
             </div>
         );
     }

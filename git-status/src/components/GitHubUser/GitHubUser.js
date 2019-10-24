@@ -66,7 +66,130 @@ function GitHubUser(props) {
         getUserEvents(props.match.params.username, setUserEvents)
     }, [])
 
+    useEffect(() => {
+        if (userEvents) {
+            getMostUsedLanguage();
+            console.log("Most common day of push ", getMostCommonDay())
+            console.log("Most common hour of push ", getMostCommonHour())
+        }
+    }, [userEvents])
+
     console.log("User Data", userAccount, userEvents);
+
+    function getMostUsedLanguage() {
+
+        let languages = {};
+
+        userEvents.forEach((eventPage) => {
+            eventPage.forEach((event) => {
+                if (event.type === "PullRequestEvent") {
+                    if (languages.hasOwnProperty(event.payload.pull_request.head.repo.language)) {
+                        languages[event.payload.pull_request.head.repo.language] = languages[event.payload.pull_request.head.repo.language] + 1;
+                    } else {
+                        languages[event.payload.pull_request.head.repo.language] = 1;
+                    }
+                }
+            })
+        })
+
+        console.log("Languages: ", languages);
+
+        let mostCommon = "None";
+        let languageCount = 0;
+
+        for (let lang in languages) {
+            if (languages[lang] > languageCount && lang != null) {
+                mostCommon = lang;
+                languageCount = languages[lang];
+            }
+        }
+
+        return mostCommon;
+    }
+
+    function getMostCommonDay() {
+
+        let days = {};
+
+        userEvents.forEach((eventPage) => {
+            eventPage.forEach((event) => {
+                if (event.type === "PushEvent") {
+                    let date = new Date(event.created_at)
+                    let day = date.getDay();
+
+                    if (days.hasOwnProperty(day)) {
+                        days[day] = days[day] + 1;
+                    } else {
+                        days[day] = 1;
+                    }
+
+                }
+            })
+        })
+
+        console.log("Days: ", days);
+
+        let mostCommon = 7;
+        let dayCount = 0;
+
+        for (let day in days) {
+            if (days[day] > dayCount && day != null) {
+                mostCommon = day;
+                dayCount = days[day];
+            }
+        }
+
+        return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "None"][mostCommon];
+
+    }
+
+    function getMostCommonHour() {
+
+        let hours = {};
+
+        userEvents.forEach((eventPage) => {
+            eventPage.forEach((event) => {
+                if (event.type === "PushEvent") {
+                    let date = new Date(event.created_at);
+                    let hour = date.getHours();
+
+                    if (hours.hasOwnProperty(hour)) {
+                        hours[hour] = hours[hour] + 1;
+                    } else {
+                        hours[hour] = 1;
+                    }
+
+                }
+            })
+        })
+
+        console.log("Hours: ", hours);
+
+        let mostCommon = "None";
+        let hourCount = 0;
+
+        for (let hour in hours) {
+            if (hours[hour] > hourCount && hour != null) {
+                mostCommon = hour;
+                hourCount = hours[hour];
+            }
+        }
+
+        if (mostCommon === 0) {
+            return "12:00am";
+        } else if (mostCommon > 0 && mostCommon < 12) {
+            return `${mostCommon}:00am`;
+        } else if (mostCommon === 12) {
+            return "12:00pm";
+        }
+        else if (isNaN(mostCommon % 12)) {
+            return "None";
+        }
+        else {
+            return `${mostCommon % 12}:00pm`;
+        }
+
+    }
 
     if (!userAccount || !userEvents) return (
         <div className="userLoading">
@@ -90,6 +213,9 @@ function GitHubUser(props) {
                         <Descriptions.Item label="Public Repositories">{userAccount.public_repos}</Descriptions.Item>
                         <Descriptions.Item label="Followers">{userAccount.followers}</Descriptions.Item>
                         <Descriptions.Item label="Following">{userAccount.following}</Descriptions.Item>
+                        <Descriptions.Item label="Most Common Language">{getMostUsedLanguage()}</Descriptions.Item>
+                        <Descriptions.Item label="Most Common Day Of Commit">{getMostCommonDay()}</Descriptions.Item>
+                        <Descriptions.Item label="Most Common Hour Of Commit">{getMostCommonHour()}</Descriptions.Item>
                     </Descriptions>
                 </div>
                 <Anchor affix={false}><Link href={userAccount.html_url} title={`GitHub Profile: /${userAccount.login}`} target="_blank" /></Anchor>
