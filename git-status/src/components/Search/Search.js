@@ -14,7 +14,7 @@ function Search(props) {
     }, [props.match.params.searchTerm])
 
     return (
-        <div>
+        <div className="home">
             <SearchForm />
             <ListSearchResults searchTerm={searchTerm} />
         </div>
