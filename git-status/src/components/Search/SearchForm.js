@@ -7,7 +7,7 @@ function SearchForm() {
     const [search, setSearch] = useState("");
 
     return (
-        <div>
+        <div className="searchForm">
             <form onSubmit={(e) => {
                 e.preventDefault();
                 console.log("Searching for user ", search);

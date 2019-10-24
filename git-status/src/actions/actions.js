@@ -24,21 +24,21 @@ export const SET_USER_ID = "SET_USER_ID";
 // export const POST_NOTE_FAIL = 'POST_NOTE_FAIL';
 
 export const getFavorites = (userID) => dispatch => {
-    console.log("getting favorites for user ", userID);
-    dispatch({ type: FETCH_FAVORITES_START });
-    AxiosWithAuth()
-      .get("favorites/users/" + userID)
-      .then(res => {
-        dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
-      }
-      )
-      .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
-  };
+  console.log("getting favorites for user ", userID);
+  dispatch({ type: FETCH_FAVORITES_START });
+  AxiosWithAuth()
+    .get("favorites/users/" + userID)
+    .then(res => {
+      dispatch({ type: FETCH_FAVORITES_SUCCESS, payload: res.data })
+    }
+    )
+    .catch(err => dispatch({ type: FETCH_FAVORITES_FAIL, payload: err }));
+};
 
-  export const setUserID = (userID) => dispatch => {
-      console.log("actions.js dispatch setting userID to ", userID );
-    dispatch({ type: SET_USER_ID, payload: userID });
-  }
+export const setUserID = (userID) => dispatch => {
+  console.log("actions.js dispatch setting userID to ", userID);
+  dispatch({ type: SET_USER_ID, payload: userID });
+}
 
 // export const getNotes = () => dispatch => {
 //   dispatch({ type: FETCH_NOTE_START });
@@ -62,32 +62,30 @@ export const getFavorites = (userID) => dispatch => {
 //       .catch(err => dispatch({ type: FETCH_NOTE_FAIL, payload: err }));
 //   };
 
-  
-  export const postFavorite = (userID, favorite) => dispatch => {
-      console.log("actions.js posting favorite", userID , favorite);
-    dispatch({ type: POST_FAVORITE_START });
-    AxiosWithAuth()
-      .post("favorites/users/" + userID, favorite)
-      .then(res => {
-          console.log("We successfully posted a favorite, and I'm hoping res.data contains the successfully posted favorite. Fix if it doesn't:", res.data);
-        dispatch({ type: POST_FAVORITE_SUCCESS, payload: {...favorite, id: res.data[0]} })
-      }
-      )
-      .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
-  };
 
-  export const deleteFavorite = (favoriteID) => dispatch => {
-    dispatch({ type: DELETE_FAVORITE_START });
-    AxiosWithAuth()
-      .delete("favorites/" + favoriteID)
-      .then(res => {
-          console.log("We successfully deleted a favorite, and I'm hoping res.data contains the successfully deleted favorite ID. Fix if it doesn't:", res.data);
-        dispatch({ type: DELETE_FAVORITE_SUCCESS, payload: res.data })
-      }
-      )
-      .catch(err => dispatch({ type: DELETE_FAVORITE_FAIL, payload: err }));
-  };
-  
+export const postFavorite = (userID, favorite) => dispatch => {
+  console.log("actions.js posting favorite", userID, favorite);
+  dispatch({ type: POST_FAVORITE_START });
+  AxiosWithAuth()
+    .post("favorites/users/" + userID, favorite)
+    .then(res => {
+      dispatch({ type: POST_FAVORITE_SUCCESS, payload: res.data })
+    }
+    )
+    .catch(err => dispatch({ type: POST_FAVORITE_FAIL, payload: err }));
+};
+
+export const deleteFavorite = (favoriteID, userID) => dispatch => {
+  dispatch({ type: DELETE_FAVORITE_START });
+  AxiosWithAuth()
+    .delete(`favorites/${userID}/${favoriteID}`)
+    .then(res => {
+      dispatch({ type: DELETE_FAVORITE_SUCCESS, payload: res.data })
+    }
+    )
+    .catch(err => dispatch({ type: DELETE_FAVORITE_FAIL, payload: err }));
+};
+
 
 
 /* HOW TO GET STATE IN YOUR COMPONENT EXAMPLE: (wrote this incase Zac wants to set up his components with Redux himself, but mostly just so I make sure I understand it myself)
