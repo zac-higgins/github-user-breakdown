@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import Favorite from "./Favorite.js";
 import { connect } from "react-redux";
 import { getFavorites } from "../../actions/actions";
-import { Alert, Skeleton } from 'antd';
+import { Alert, Skeleton, Typography } from 'antd';
+import { getUserAccount } from "../../Utils/AxiosCall.js";
+const { Title } = Typography;
 
 function ListFavorites(props) {
 
@@ -23,10 +25,13 @@ function ListFavorites(props) {
     )
 
     return (
-        <div>
-            {props.favorites.map((favorite) => {
-                return <Favorite favorite={favorite} />
-            })}
+        <div className="favoriteResults">
+            <Title level={2}>Favorites</Title>
+            <div className="favoriteCards">
+                {props.favorites.map((favorite) => {
+                    return <Favorite favorite={favorite} getUser={getUserAccount} />
+                })}
+            </div>
         </div>
     );
 }
